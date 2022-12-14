@@ -22,7 +22,7 @@ create table company (
 
 --changeset Lukas_Kammler:3
 --rollback DROP TABLE Lukas_Kammler;
-CREATE TABLE Lukas:Kammler (
+CREATE TABLE Lukas_Kammler (
     id int primary key,
     name varchar(50) not null
 )
