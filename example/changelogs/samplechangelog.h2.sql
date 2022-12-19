@@ -27,6 +27,12 @@ CREATE TABLE Lukas_Kammler (
     name varchar(50) not null
 )
 
+--changeset Lukas_Kammler:6
+--rollback DROP TABLE Lukas_Kammler_Test;
+CREATE TABLE Lukas_Kammler_Test (
+    id int primary key,
+    name varchar(50) not null
+)
 
 --changeset other.dev:3
 --rollback ALTER TABLE person DROP COLUMN country;
