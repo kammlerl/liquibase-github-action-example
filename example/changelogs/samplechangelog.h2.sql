@@ -27,6 +27,7 @@ CREATE TABLE Lukas_Kammler (
     name varchar(50) not null
 )
 
+
 --changeset other.dev:3
 --rollback ALTER TABLE person DROP COLUMN country;
 alter table person add column country varchar(2)
