@@ -18,7 +18,7 @@ jobs:
           
 
   test-liquibase-action:
-    needs: Diff Changelog
+    needs: diff-changelog
     runs-on: ubuntu-latest
     name: Test Liquibase Action
     steps:
