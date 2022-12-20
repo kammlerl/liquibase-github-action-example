@@ -8,14 +8,15 @@ jobs:
       - uses: actions/checkout@v2
       - uses: liquibase/liquibase-github-action@v2
         with: 
-          operation: 'diff'
+          operation: 'diff-changelog'
           classpath: 'example/changelogs'
           changeLogFile: 'samplechangelog.h2.sql'
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           url: ${{ secrets.URL }}
-          referenceUrl: jdbc:postgresql://database-2.couzg7rb6ux2.us-east-1.rds.amazonaws.com:5432/dev
-          
+          referenceUrl: ${{ secrets.REFERENCEURL }}
+          referenceUsername: ${{ secrets.USERNAME }}
+          referencePassword: ${{ secrets.PASSWORD }}
 
   test-liquibase-action:
     needs: diff-changelog
