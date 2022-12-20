@@ -6,7 +6,7 @@ jobs:
     name: Diff Changelog
     steps:
       - uses: actions/checkout@v2
-      - uses: liquibase/liquibase-github-action@v2
+      - uses: liquibase/liquibase-github-action@v1
         with: 
           operation: 'diff'
           classpath: 'example/changelogs'
