@@ -10,7 +10,7 @@ jobs:
         with: 
           operation: 'diff'
           classpath: 'example/changelogs'
-          changelog-file: 'samplechangelog.h2.sql'
+          changeLogFile: 'samplechangelog.h2.sql'
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           url: ${{ secrets.URL }}
