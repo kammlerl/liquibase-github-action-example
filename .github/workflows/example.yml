@@ -15,8 +15,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           url: ${{ secrets.URL }}
           referenceUrl: ${{ secrets.REFERENCEURL }}
-          referenceUsername: ${{ secrets.USERNAME }}
-          referencePassword: ${{ secrets.PASSWORD }}
+         
 
   test-liquibase-action:
     needs: diff-changelog
