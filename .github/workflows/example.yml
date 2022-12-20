@@ -14,9 +14,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           url: ${{ secrets.URL }}
-          referenceUrl: ${{ secrets.REFERENCEURL }}
-          referenceUsername: ${{ secrets.USERNAME }}
-          referencePassword: ${{ secrets.PASSWORD }}
+          referenceUrl: jdbc:postgresql://database-2.couzg7rb6ux2.us-east-1.rds.amazonaws.com:5432/dev
+          
 
   test-liquibase-action:
     needs: diff-changelog
