@@ -8,7 +8,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: liquibase-github-actions/diff-changelog@v4.18.0
         with: 
-          diffChangeLog: 'example/changelogs/mychangelog.sql'
+          classpath: 'example/changelogs'
+          changeLogFile: 'mychangelog.sql'
           referenceUrl: ${{ secrets.REFERENCEURL }}
           url: ${{ secrets.URL }}
           username: ${{ secrets.USERNAME }}
