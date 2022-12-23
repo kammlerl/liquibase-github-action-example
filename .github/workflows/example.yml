@@ -5,16 +5,16 @@ jobs:
     runs-on: ubuntu-latest
     name: Diff Changelog
     steps:
-      - uses: actions/checkout@v2
-      - uses: liquibase/liquibase-github-action@v2
+      - uses: actions/checkout@v3
+      - uses: liquibase-github-actions/diff-changelog@v4.18.0
         with: 
-          operation: 'diff'
-          classpath: 'example/changelogs'
-          changeLogFile: 'samplechangelog.h2.sql'
+          changeLogFile: 'example/changelogs/samplechangelog.h2.sql'
+          referenceUrl: ${{ secrets.REFERENCEURL }}
+          url: ${{ secrets.URL }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          url: ${{ secrets.URL }}
-          referenceUrl: ${{ secrets.REFERENCEURL }}
+          referenceUsername: ${{ secrets.USERNAME }}
+          referencePassword: ${{ secrets.PASSWORD }}
           
 
   test-liquibase-action:
