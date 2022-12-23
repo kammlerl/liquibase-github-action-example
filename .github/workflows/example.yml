@@ -28,7 +28,7 @@ jobs:
         with:
           operation: 'update'
           classpath: 'example/changelogs'
-          changeLogFile: 'mychangelog.sql'
+          changeLogFile: 'samplechangelog.h2.sql'
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           url: ${{ secrets.URL }}
