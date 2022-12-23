@@ -9,7 +9,7 @@ jobs:
       - uses: liquibase-github-actions/diff-changelog@v4.18.0
         with: 
           classpath: 'example/changelogs'
-          changeLogFile: 'samplechangelog.h2.sql'
+          changeLogFile: 'mychangelog.sql'
           referenceUrl: ${{ secrets.REFERENCEURL }}
           url: ${{ secrets.URL }}
           username: ${{ secrets.USERNAME }}
