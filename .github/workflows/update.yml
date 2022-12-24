@@ -6,12 +6,11 @@ jobs:
      runs-on: ubuntu-latest
      name: Update Database
      steps:
-       - uses: actions/checkout@v2
-       - uses: liquibase/liquibase-github-action@v2
+      - uses: actions/checkout@v3
+      - uses: liquibase-github-actions/update-sql@v4.18.0
          with:
-           operation: 'update'
-           classpath: 'example/changelogs'
-           changeLogFile: 'mynewchangelog.xml'
-           username: ${{ secrets.USERNAME }}
-           password: ${{ secrets.PASSWORD }}
-           url: ${{ secrets.URL }}
+          changelogFile: 'example/changelogs/mynewchangelog.xml'
+          url: ${{ secrets.URL }}
+          password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.USERNAME }}
+          
