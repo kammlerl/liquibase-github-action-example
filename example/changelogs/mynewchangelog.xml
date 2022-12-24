@@ -74,4 +74,89 @@
             <column name="liga" type="INTEGER"/>
         </createTable>
     </changeSet>
+    <changeSet author="liquibase (generated)" id="1671912240870-1">
+        <createTable tableName="liga">
+            <column name="liga_nr" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="Liga_pk"/>
+            </column>
+            <column name="verband" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="erstaustragung" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meister" type="INTEGER"/>
+            <column defaultValue="NULL::character varying" name="rekordspieler" type="VARCHAR(255)"/>
+            <column name="spiele_rekordspieler" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1671912240870-2">
+        <createTable tableName="spieler">
+            <column name="spieler_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="Spieler_pk"/>
+            </column>
+            <column name="vereins_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trikot_nr" type="INTEGER"/>
+            <column name="spieler_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NULL::character varying" name="land" type="VARCHAR(255)"/>
+            <column name="spiele" type="INTEGER"/>
+            <column name="tore" type="INTEGER"/>
+            <column name="vorlagen" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1671912240870-3">
+        <createTable tableName="spiel">
+            <column name="spiel_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="Spiel_pk"/>
+            </column>
+            <column name="spieltag" type="INTEGER"/>
+            <column name="datum" type="date"/>
+            <column name="uhrzeit" type="time(6) WITHOUT TIME ZONE"/>
+            <column name="heim" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gast" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tore_heim" type="INTEGER"/>
+            <column name="tore_gast" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1671912240870-4">
+        <createTable tableName="test">
+            <column name="t_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="Test_pk"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="test" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1671912240870-5">
+        <createTable tableName="test2">
+            <column name="t2_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="Test2_pk"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="test2" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1671912240870-6">
+        <createTable tableName="verein">
+            <column name="v_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="Verein_pk"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="liga" type="INTEGER"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
