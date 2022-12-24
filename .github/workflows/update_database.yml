@@ -6,7 +6,7 @@ jobs:
      name: Update Database
      steps:
       - uses: actions/checkout@v3
-      - uses: liquibase-github-actions/update-sql@v4.18.0
+      - uses:  liquibase-github-actions/update@v4.18.0
         with:
           changelogFile: 'example/changelogs/mynewchangelog.xml'
           url: ${{ secrets.URL }}
