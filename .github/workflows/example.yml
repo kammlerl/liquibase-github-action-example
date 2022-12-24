@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           referenceUsername: ${{ secrets.USERNAME }}
           referencePassword: ${{ secrets.PASSWORD }}
-       # Commit and push all changed files.
+       # Commit and push all changed files (in this case the changelog).
       - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
@@ -36,7 +36,7 @@ jobs:
         with:
           operation: 'update'
           classpath: 'example/changelogs'
-          changeLogFile: 'samplechangelog.h2.sql'
+          changeLogFile: 'mychangelog.sql'
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           url: ${{ secrets.URL }}
