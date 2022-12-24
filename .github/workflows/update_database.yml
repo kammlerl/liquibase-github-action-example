@@ -7,8 +7,8 @@ jobs:
      steps:
       - uses: actions/checkout@v3
       - uses: liquibase-github-actions/update-sql@v4.18.0
-         with:
-           changelogFile: 'example/changelogs/mynewchangelog.xml'
-           url: ${{ secrets.URL }}
-           password: ${{ secrets.PASSWORD }}
-           username: ${{ secrets.USERNAME }}
+        with:
+          changelogFile: 'example/changelogs/mynewchangelog.xml'
+          url: ${{ secrets.URL }}
+          password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.USERNAME }}
