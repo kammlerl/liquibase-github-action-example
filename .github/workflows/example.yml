@@ -3,6 +3,9 @@ on: [workflow_dispatch]
 jobs:
   diff-changelog:
     runs-on: ubuntu-latest
+    env: 
+      CI_COMMIT_MESSAGE: Continuous Integration Changelog
+      CI_COMMIT_AUTHOR: Continuous Integration
     name: Diff Changelog
     steps:
       - uses: actions/checkout@v3
@@ -15,7 +18,13 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           referenceUsername: ${{ secrets.USERNAME }}
           referencePassword: ${{ secrets.PASSWORD }}
-          
+       # Commit and push all changed files.
+      - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
+        run: |
+          git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config --global user.email "kammlerl@users.noreply.github.com"
+          git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+          git push         
 
   test-liquibase-action:
     needs: diff-changelog
