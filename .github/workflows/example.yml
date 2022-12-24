@@ -26,17 +26,17 @@ jobs:
           git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
           git push         
 
-  test-liquibase-action:
-    needs: diff-changelog
-    runs-on: ubuntu-latest
-    name: Test Liquibase Action
-    steps:
-      - uses: actions/checkout@v2
-      - uses: liquibase/liquibase-github-action@v2
-        with:
-          operation: 'update'
-          classpath: 'example/changelogs'
-          changeLogFile: 'mynewchangelog.xml'
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          url: ${{ secrets.URL }}
+#  test-liquibase-action:
+ #   needs: diff-changelog
+  #  runs-on: ubuntu-latest
+   # name: Test Liquibase Action
+    #steps:
+     # - uses: actions/checkout@v2
+      #- uses: liquibase/liquibase-github-action@v2
+       # with:
+        #  operation: 'update'
+         # classpath: 'example/changelogs'
+          #changeLogFile: 'mynewchangelog.xml'
+          #username: ${{ secrets.USERNAME }}
+          #password: ${{ secrets.PASSWORD }}
+          #url: ${{ secrets.URL }}
