@@ -1,0 +1,25 @@
+on: [workflow_dispatch]
+
+jobs:
+  changelog-sync:
+     runs-on: ubuntu-latest
+     env: 
+      CI_COMMIT_MESSAGE: Continuous Integration Changelog
+      CI_COMMIT_AUTHOR: Continuous Integration
+     name: Changelog Sync
+     steps:
+     - uses: actions/checkout@v3
+     - uses: liquibase-github-actions/changelog-sync@v4.18.0
+       with: 
+         changeLogFile: 'example/changelogs/neu.sql'
+         url: ${{ secrets.URL }}
+         password: ${{ secrets.PASSWORD }}
+         username: ${{ secrets.USERNAME }}
+      
+      # Commit and push all changed files (in this case the changelog).
+     - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
+       run: |
+         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+         git config --global user.email "kammlerl@users.noreply.github.com"
+         git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+         git push         

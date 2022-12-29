@@ -13,16 +13,16 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           username: ${{ secrets.USERNAME }}
 
-  changelog-sync:
-     needs: update-database
-     runs-on: ubuntu-latest
-     name: Changelog Sync
-     steps:
-     - uses: actions/checkout@v3
-     - uses: liquibase-github-actions/changelog-sync@v4.18.0
-       with: 
-         changeLogFile: 'example/changelogs/neu.sql'
-         url: ${{ secrets.URL }}
-         password: ${{ secrets.PASSWORD }}
-         username: ${{ secrets.USERNAME }}
+#  changelog-sync:
+ #    needs: update-database
+  #   runs-on: ubuntu-latest
+   #  name: Changelog Sync
+    # steps:
+     #- uses: actions/checkout@v3
+     #- uses: liquibase-github-actions/changelog-sync@v4.18.0
+      # with: 
+       #  changeLogFile: 'example/changelogs/neu.sql'
+        # url: ${{ secrets.URL }}
+         #password: ${{ secrets.PASSWORD }}
+         #username: ${{ secrets.USERNAME }}
     
