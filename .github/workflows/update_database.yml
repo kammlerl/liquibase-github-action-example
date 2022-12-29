@@ -16,6 +16,9 @@ jobs:
   changelog-sync:
      needs: update-database
      runs-on: ubuntu-latest
+     env: 
+       CI_COMMIT_MESSAGE: Continuous Integration Changelog Sync
+       CI_COMMIT_AUTHOR: Continuous Integration
      name: Changelog Sync
      steps:
      - uses: actions/checkout@v3
