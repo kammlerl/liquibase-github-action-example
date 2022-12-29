@@ -1,6 +1,6 @@
 name: Liquibase_Docker_GitHub-Hosted
 
-on: [push]
+on: [workflow_dispatch]
 
 # on:
 #  workflow_dispatch:

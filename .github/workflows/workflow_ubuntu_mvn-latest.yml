@@ -2,7 +2,7 @@
 
 name: Liquibase_Maven_GitHub-Hosted
 
-on: [push]
+on: [workflow_dispatch]
 
 # For more control over when the action will run, comment out (or delete) the above and trigger the workflow on master-branch push or pull request
 # by uncommenting the appropriate section below.
