@@ -15,3 +15,8 @@ CREATE TABLE "test" ("t_id" INTEGER NOT NULL, "name" VARCHAR(255) NOT NULL, "tes
 -- changeset liquibase:1672316164852-5
 CREATE TABLE "verein" ("v_id" INTEGER NOT NULL, "name" VARCHAR(255) NOT NULL, "liga" INTEGER, CONSTRAINT "Verein_pk" PRIMARY KEY ("v_id"));
 
+-- liquibase formatted sql
+
+-- changeset liquibase:1672316497285-1
+CREATE TABLE "test2" ("t2_id" INTEGER NOT NULL, "name" VARCHAR(255) NOT NULL, "test2" INTEGER, CONSTRAINT "Test2_pk" PRIMARY KEY ("t2_id"));
+
