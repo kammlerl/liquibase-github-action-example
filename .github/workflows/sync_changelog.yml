@@ -11,15 +11,15 @@ jobs:
      - uses: actions/checkout@v3
      - uses: liquibase-github-actions/changelog-sync@v4.18.0
        with: 
-         changeLogFile: 'example/changelogs/neu.sql'
+         changeLogFile: 'example/changelogs/containerchangelog.sql'
          url: ${{ secrets.URL }}
          password: ${{ secrets.PASSWORD }}
          username: ${{ secrets.USERNAME }}
       
       # Commit and push all changed files (in this case the changelog).
-     - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
-       run: |
-         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
-         git config --global user.email "kammlerl@users.noreply.github.com"
-         git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
-         git push         
+   #  - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
+    #   run: |
+      #   git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
+       #  git config --global user.email "kammlerl@users.noreply.github.com"
+        # git commit -a -m "${{ env.CI_COMMIT_MESSAGE }}"
+         #git push         
