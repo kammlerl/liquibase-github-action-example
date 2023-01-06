@@ -14,3 +14,8 @@ CREATE TABLE "test2" ("t2_id" INTEGER NOT NULL, "name" VARCHAR(255) NOT NULL, "t
 -- changeset liquibase:1673013313794-1
 CREATE TABLE "test3" ("t3_id" INTEGER NOT NULL, "name" VARCHAR(255) NOT NULL, "test3" INTEGER, CONSTRAINT "Test3_pk" PRIMARY KEY ("t3_id"));
 
+-- liquibase formatted sql
+
+-- changeset liquibase:1673013719853-1
+DROP TABLE "test2";
+
