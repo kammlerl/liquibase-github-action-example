@@ -24,3 +24,8 @@ DROP TABLE "test2";
 -- changeset liquibase:1673443013239-1
 DROP TABLE "test3";
 
+-- liquibase formatted sql
+
+-- changeset liquibase:1673443650024-1
+DROP TABLE "test1";
+
