@@ -1,7 +1,20 @@
 on: [workflow_dispatch]
 
 jobs:
+  clear-checksums:
+    runs-on: ubuntu-latest
+    name: Clear Checksums
+    steps:
+      - uses: actions/checkout@v3
+      - uses: liquibase-github-actions/clear-checksums@v4.18.0
+        with:
+          url: ${{ secrets.URL }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+
+
   update-database:
+     needs: clear-checksums
      runs-on: ubuntu-latest
      name: Update Database
      steps:
