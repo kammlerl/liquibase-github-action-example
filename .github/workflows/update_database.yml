@@ -6,36 +6,22 @@ jobs:
     name: Clear Checksums
     steps:
       - uses: actions/checkout@v3
-      - uses: liquibase-github-actions/clear-checksums@v4.18.0
+      - uses: liquibase-github-actions/clear-checksums@v4.18.0    #1st action in use (Clear Checksums)
         with:
           url: ${{ secrets.URL }}
-          username: ${{ secrets.USERNAME }}
+          username: ${{ secrets.USERNAME }}                #access data of the target database in use -> stored in the GitHub Secrets
           password: ${{ secrets.PASSWORD }}
 
 
   update-database:
-     needs: clear-checksums
+     needs: clear-checksums                             #this job waits till the first job is successfully executed 
      runs-on: ubuntu-latest
      name: Update Database
      steps:
       - uses: actions/checkout@v3
-      - uses:  liquibase-github-actions/update@v4.18.0
+      - uses:  liquibase-github-actions/update@v4.18.0      #2nd action in use (update database)
         with:
-          changelogFile: 'example/changelogs/containerchangelog.sql'
+          changelogFile: 'example/changelogs/containerchangelog.sql'  #changelog in use
           url: ${{ secrets.URL }}
-          password: ${{ secrets.PASSWORD }}
+          password: ${{ secrets.PASSWORD }}                   #access data of target database
           username: ${{ secrets.USERNAME }}
-
-#  changelog-sync:
- #    needs: update-database
-  #   runs-on: ubuntu-latest
-   #  name: Changelog Sync
-    # steps:
-     #- uses: actions/checkout@v3
-     #- uses: liquibase-github-actions/changelog-sync@v4.18.0
-      # with: 
-       #  changeLogFile: 'example/changelogs/neu.sql'
-        # url: ${{ secrets.URL }}
-         #password: ${{ secrets.PASSWORD }}
-         #username: ${{ secrets.USERNAME }}
-    

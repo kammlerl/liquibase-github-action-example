@@ -9,13 +9,13 @@ jobs:
     name: Diff Changelog
     steps:
       - uses: actions/checkout@v3
-      - uses: liquibase-github-actions/diff-changelog@v4.18.0     #the used action
+      - uses: liquibase-github-actions/diff-changelog@v4.18.0     #the used action (Diff Changelog)
         with: 
           changeLogFile: 'example/changelogs/containerchangelog.sql'  #the used changelog
           referenceUrl: ${{ secrets.REFERENCEURL }}                 
           url: ${{ secrets.URL }}
           username: ${{ secrets.USERNAME }}                         
-          password: ${{ secrets.PASSWORD }}                     #access data of the databases in use -> stored in the GitHub Secrets
+          password: ${{ secrets.PASSWORD }}                     #access data of the databases in use (referenceUrl = reference database; url = target database) -> stored in the GitHub Secrets
           referenceUsername: ${{ secrets.USERNAME }}
           referencePassword: ${{ secrets.PASSWORD }}
        # Commit and push all changed files (in this case the changelog) back to the repository.
@@ -31,7 +31,7 @@ jobs:
   #  runs-on: ubuntu-latest
    # name: Test Liquibase Action
     #steps:
-     # - uses: actions/checkout@v2
+     # - uses: actions/checkout@v2                    #old version
       #- uses: liquibase/liquibase-github-action@v2
        # with:
         #  operation: 'update'

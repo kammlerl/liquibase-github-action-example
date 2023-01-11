@@ -6,10 +6,10 @@ jobs:
      name: Changelog Sync
      steps:
      - uses: actions/checkout@v3
-     - uses: liquibase-github-actions/changelog-sync@v4.18.0    #action in use
+     - uses: liquibase-github-actions/changelog-sync@v4.18.0    #action in use (synch-changelog)
        with: 
-         changeLogFile: 'example/changelogs/containerchangelog.sql'
+         changeLogFile: 'example/changelogs/containerchangelog.sql' #changelog in use
          url: ${{ secrets.URL }}
-         password: ${{ secrets.PASSWORD }}        #access data of the database in use -> stored in the GitHub Secrets
+         password: ${{ secrets.PASSWORD }}        #access data of the target database in use -> stored in the GitHub Secrets
          username: ${{ secrets.USERNAME }}
      
