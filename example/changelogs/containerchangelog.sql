@@ -29,3 +29,8 @@ DROP TABLE "test3";
 -- changeset liquibase:1673443650024-1
 DROP TABLE "test1";
 
+-- liquibase formatted sql
+
+-- changeset liquibase:1673445831417-1
+CREATE TABLE "test1" ("t1_id" INTEGER NOT NULL, "name" VARCHAR(255) NOT NULL, "test1" INTEGER, CONSTRAINT "Test1_pk" PRIMARY KEY ("t1_id"));
+
