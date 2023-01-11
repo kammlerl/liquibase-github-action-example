@@ -19,3 +19,8 @@ CREATE TABLE "test3" ("t3_id" INTEGER NOT NULL, "name" VARCHAR(255) NOT NULL, "t
 -- changeset liquibase:1673013719853-1
 DROP TABLE "test2";
 
+-- liquibase formatted sql
+
+-- changeset liquibase:1673443013239-1
+DROP TABLE "test3";
+
