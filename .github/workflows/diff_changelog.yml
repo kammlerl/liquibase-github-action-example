@@ -5,20 +5,20 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       CI_COMMIT_MESSAGE: Continuous Integration Changelog
-      CI_COMMIT_AUTHOR: Continuous Integration
+      CI_COMMIT_AUTHOR: Continuous Integration              #commit message and author for the push back to the repository
     name: Diff Changelog
     steps:
       - uses: actions/checkout@v3
-      - uses: liquibase-github-actions/diff-changelog@v4.18.0
+      - uses: liquibase-github-actions/diff-changelog@v4.18.0     #the used action
         with: 
-          changeLogFile: 'example/changelogs/containerchangelog.sql'
-          referenceUrl: ${{ secrets.REFERENCEURL }}
+          changeLogFile: 'example/changelogs/containerchangelog.sql'  #the used changelog
+          referenceUrl: ${{ secrets.REFERENCEURL }}                 
           url: ${{ secrets.URL }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          username: ${{ secrets.USERNAME }}                         
+          password: ${{ secrets.PASSWORD }}                     #access data of the databases in use -> stored in the GitHub Secrets
           referenceUsername: ${{ secrets.USERNAME }}
           referencePassword: ${{ secrets.PASSWORD }}
-       # Commit and push all changed files (in this case the changelog).
+       # Commit and push all changed files (in this case the changelog) back to the repository.
       - name: GIT Commit Build Artifacts (coverage, dist, devdist, docs)
         run: |
           git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"

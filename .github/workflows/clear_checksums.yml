@@ -1,7 +1,7 @@
 on: [workflow_dispatch]
 
 jobs:
-  clear-checksums:
+  clear-checksums:                                    #THIS WORKLFOW IS JUST FOR TESTING!!!
     runs-on: ubuntu-latest
     name: Clear Checksums
     steps:
