@@ -1,63 +1,49 @@
-[![.github/workflows/example.yml](https://github.com/liquibase/liquibase-github-action-example/actions/workflows/example.yml/badge.svg)](https://github.com/liquibase/liquibase-github-action-example/actions/workflows/example.yml)
+Welcome to the cloud computing project: Versioning of containerized databases (Team: Lukas Kammler, Dennis Klink, Christian Jakobi)
 
-# Example Liquibase Github Action
+In this file the used GitHub actions are described in more detail.
 
-Liquibase Github Action is the official Liquibase plugin for Github Actions. The plugin supports the most useful Liquibase commands for automation. These commands are update, updateCount, tag, updateToTag, rollback, rollbackCount, rollbackToDate, updateSQL, futureRollbackSQL, status, history and diff. 
+First of all the important syntax of a workflow is going to be explained: (Source: https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
 
-Liquibase Github Action Repository : https://github.com/liquibase/liquibase-github-action
+    on: [workflow_dispatch]   #In this case the workflow is triggered manually
 
-This example directory is a way to get familiar with how Liquibase Github Action works. 
+    jobs: #A job is a set of steps in a workflow that execute on the same runner. Each step is either a shell script that will be executed, or an action that will be run
+    
+    runs on: ubuntu-latest # Configures the job to run on the latest version of an Ubuntu Linux runner. The job will execute on a fresh virtual machine hosted by GitHub.
 
-# How To Run the Example
+    steps: #Groups together all the steps that run in a particular job. Each item nested under this section is a separate action or shell script.
 
-1. Fork and clone the liquibase-github-action-example repository.
-> Fork by clicking the "Fork" button at the top right of the liquibase-github-action-example page.
-```bash
-git clone git@github.com:<YOURFORK>/liquibase/liquibase-github-action-example.git
-```
-2. Create a new git branch for your changes.
-```bash
-git checkout -b <your_branch_name>
-```
-3. Edit example/changelogs/samplechangelog.h2.sql to add a new changeset. Replace "yourname" with a unique identifier.
-```
---changeset yourname:yourname1
---rollback DROP TABLE yourname;
-CREATE TABLE yourname (
-    id int primary key,
-    name varchar(50) not null
-)
-```
-4. Add the the database username, password and url to your [GitHub Secrets](https://docs.github.com/en/actions/reference/encrypted-secrets).  The values to use are in `example/changelogs/configurationValues.txt`
+    uses: actions/checkout@v3 #Specifies that a step will run v3 of the actions/checkout action. It checks out your repository onto the runner.
 
-5. Add, commit and push your changes to GitHub.
-```bash
-git add example/changelogs/samplechangelog.h2.sql
-git commit -m "yourname: Adding new changeset for example"
-git push origin <your_branch_name>
-```
-6. Your commit triggers a build in GitHub and executes Liquibase update!
+    uses: liquibase-github-actions/... #In this project this keyword uses a Liquibase GitHub Action provided by Liquibase
+    with:                              #with some parameters
 
- `https://github.com/<YOURFORK>/liquibase-github-action-example/actions`
- 
-
- If you want to try with your own changelog and database, you can make a pull request against this repository with your desired operation, changeLogFile, database username, database password, and database jdbc url.
-
-# Additional Examples
- In addition to the default Docker-based example included in the "example" folder this repository also contains additional examples in the "extra" folder.
- These pertain to various non-Docker build systems such as Gradle, NodeJS and Maven, and also showcase a second Docker example that doesn't use the official Liquibase action. While the official GitHub Action is the preferred way of implementing Docker-based workflows, there may be use-cases requiring custom container images from custom registries. The extra Docker example illustrates how this can be done.
-
- Corresponding GitHub Action workflow (.yml) files for all extra examples can be found in the .github/workflows directory and they must be explicitly enabled for testing.
-
- # Troubleshooting
- * If your build fails due to a validation error, verify that your changeset author and ID are unique in the changelog. This is the `changeset yourname:yourname1`, where the left side is your author and the right is the changeset ID.
- * If Liquibase Update fails, verify that your table name is unique in the changelog.
-
-# Get More Liquibase!
-Get documentation at https://docs.liquibase.com      
-Get certified courses at https://learn.liquibase.com  
-Get support at https://liquibase.com/support         
+    run: 
+    #This keyword tells the job to execute a command on the runner. In case of the diff_changelog workflow Git commands are used to push back changed code that was generated while running the action (updated changelog)
 
 
-Copyright 2021 Liquibase Inc. All rights reserved. Liquibase is a registered trademark of Liquibase Inc. The program is subject to the 
-license agreement, copyright, trademark, patent, and other laws.
+How to use the project:
+
+First you have to make shure that you are able to connect to our databases. They are both in separate AWS EC2 instances. Due to our AWS Labrole every 4 hours the access data changes an the contaiers stop running. You have to log on the instances and have to start the containers again (they are running on account: klinkden@hs-pforzheim.de).For the Postgres Reference Instance run: sudo docker start postgresreference. For the Postgres Instance run: sudo docker start postgrestarget. Both are running on Port 5432.
+Username and password of the databases stay constant and are stored in the GitHub Secrets. When you want to update the GitHub Secrets use following structure for url (EC2 Postgres Instance) and referenceUrl (EC2 Postgres Reference Instance): jdbc:postgresql://ec2-blablabla.balabla.amazonaws.com:5432/postgres. Click on the EC2 Instances and use the Public IPv4 DNS (ec2-blablabla.balabla.amazonaws.com).
+
+If you completed the steps above you are now able to use the workflows.
+
+In the following the Postgres Reference Instance Database is called dev and the Postgres Instance Database is called prod.
+
+1. Make some changes in the dev database
+2. run the diff_chagnelog workflow. (Click in the repository on "Actions" then select on the left-hand side the diff_changelog action. You can then run the workflow. The other actions are triggered the same way)
+3. Check the updated changelog if the changes that you made are correct (example/changelogs/containerchangelog.sql). This is recommended by Liquibase!
+4. run the update_database workflow
+5. You can now check the prod database. You will see now the same changes that you made to the dev database
+
+
+Now the different workflows are explained in more detail
+
+1. diff_changelog:
+The liquibase-github-actions/diff-changelog@v4.18.0 action compares the dev with the prod database and creates changesets and is saving them in a changelog file. For all possible parameters visit https://github.com/marketplace/actions/liquibase-diff-changelog-action. After that the workflow runs Git commands to push back the changed changelog.
+
+2. upate_database:
+The update_database workflow doploys any changes in the changelog file that have not been deployed. Therefore the liquibase-github-actions/update@v4.18.0 action uses the DATABASECHANGELOG table in the prod database to track which changesets have been run. If the table does not exist in the prod database, the action creates one automatically. Also generated if not already there is the DATABASECHANGELOGLOCK table. This table ensures only one instance of Liquibase runs at a time. To avoid conflicts between concurrent updates—which can happen if multiple developers use the same database instance or if multiple servers in a cluster auto-run Liquibase on startup—the DATABASECHANGELOGLOCK table sets the LOCKED column to 1 when an update is currently running. If you make another update during this time, Liquibase waits until the lock releases before running it. (Sources: https://docs.liquibase.com/concepts/tracking-tables/databasechangelog-table.html ; https://docs.liquibase.com/concepts/tracking-tables/databasechangeloglock-table.html) For all possible parameters visit https://github.com/marketplace/actions/liquibase-update-action
+checksum fehler
+
+
