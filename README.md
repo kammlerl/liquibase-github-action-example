@@ -7,6 +7,8 @@ First of all the important syntax of a workflow is going to be explained: (Sourc
     on: [workflow_dispatch]   #In this case the workflow is triggered manually
 
     jobs: #A job is a set of steps in a workflow that execute on the same runner. Each step is either a shell script that will be executed, or an action that will be run
+
+    needs: #This job is only executed if another job was executed successfully
     
     runs on: ubuntu-latest # Configures the job to run on the latest version of an Ubuntu Linux runner. The job will execute on a fresh virtual machine hosted by GitHub.
 
@@ -44,6 +46,9 @@ The liquibase-github-actions/diff-changelog@v4.18.0 action compares the dev with
 
 2. upate_database:
 The update_database workflow doploys any changes in the changelog file that have not been deployed. Therefore the liquibase-github-actions/update@v4.18.0 action uses the DATABASECHANGELOG table in the prod database to track which changesets have been run. If the table does not exist in the prod database, the action creates one automatically. Also generated if not already there is the DATABASECHANGELOGLOCK table. This table ensures only one instance of Liquibase runs at a time. To avoid conflicts between concurrent updates—which can happen if multiple developers use the same database instance or if multiple servers in a cluster auto-run Liquibase on startup—the DATABASECHANGELOGLOCK table sets the LOCKED column to 1 when an update is currently running. If you make another update during this time, Liquibase waits until the lock releases before running it. (Sources: https://docs.liquibase.com/concepts/tracking-tables/databasechangelog-table.html ; https://docs.liquibase.com/concepts/tracking-tables/databasechangeloglock-table.html) For all possible parameters visit https://github.com/marketplace/actions/liquibase-update-action
-checksum fehler
+Because there is always an error occuring when the action liquibase-github-actions/update@v4.18.0 is executed (changed checksum in the DATABASECHANGELOG table) the action liquibase-github-actions/clear-checksums@v4.18.0 is executed before the update-action to clear and recalculate the checksums of the already deployed changesets in the DATABASECHANGELOG table. Then the error is not occuring. (Sources: https://docs.liquibase.com/commands/maintenance/clear-checksums.html ; https://github.com/marketplace/actions/liquibase-clear-checksums-action)
+
+3. sync_changelog (BONUS!!!):
+This workflow marks all undeployed changes in your changelog as executed in the prod database. This workflow can be used when you have a DEV environment with a set of objects used only in dev database. Therefore run the diff_changelog worklflow with a blank changelog so that there will be DEV only changesets in the changelog. After that run the sync_changelog workflow to mark these changesets as executed in the prod database. (Sources: https://docs.liquibase.com/commands/change-tracking/changelog-sync.html ; https://github.com/marketplace/actions/liquibase-changelog-sync-action) 
 
 
